@@ -1,7 +1,9 @@
+const path = require("path");
+
 module.exports = {
 	verbose: true,
 	moduleNameMapper: {
-		// Module name remap if any
+		"^@app(.*)": path.resolve(__dirname, "app$1")
 	},
-	testRegex: "**/tests/**/*.test.js"
+	testMatch: ["**/tests/**/*.[j]s", "**/?(*.)+(test).[j]s"]
 };
