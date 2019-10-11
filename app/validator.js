@@ -1,13 +1,14 @@
 class Validator {
-	constructor(x, y, lenX, lenY) {
+	constructor(x, y, lenX, lenY, direction) {
 		this.startX = x;
 		this.startY = y;
 		this.lengthX = lenX;
 		this.lengthY = lenY;
+		this.direction = direction;
 	}
 
 	/**
-	 * Check if x, y is inside table
+	 * Check if x, y coordinate inside table
 	 * @param {INT} x coordinate x
 	 * @param {INT} y coordinate y
 	 * @return {Boolean}
@@ -22,6 +23,11 @@ class Validator {
 			return true;
 		}
 		return false;
+	}
+
+	isValidDirection(f) {
+		f = f.toUpperCase(f);
+		return this.direction.indexOf(f) !== -1;
 	}
 }
 
