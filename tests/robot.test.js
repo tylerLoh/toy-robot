@@ -17,19 +17,25 @@ describe("Test Robot class", () => {
 		robot = new Robot(messenger, validator);
 	});
 
+	it("should return invalid command for unhandle function", () => {
+		expect(robot.fn("_update")).toEqual(
+			robot.messenger.getMessage("invalidCommand", '_update')
+		);
+	});
+
 	it("should return invalid coordinate if x | y not int", () => {
 		let x = 1;
 		let y = "hi";
 		let f = "south";
-		expect(robot.place(x, y, f)).toEqual(
-			Error(messenger.getMessage("invalidCoordinate", x, y))
+		expect(robot.fn("place", x, y, f)).toEqual(
+			robot.messenger.getMessage("invalidCoordinate", x, y)
 		);
 
 		x = "hi";
 		y = 2;
 		f = "south";
-		expect(robot.place(x, y, f)).toEqual(
-			Error(messenger.getMessage("invalidCoordinate", x, y))
+		expect(robot.fn("place", x, y, f)).toEqual(
+			robot.messenger.getMessage("invalidCoordinate", x, y)
 		);
 	});
 
@@ -37,8 +43,8 @@ describe("Test Robot class", () => {
 		let x = 1;
 		let y = 2;
 		let f = "random";
-		expect(robot.place(x, y, f)).toEqual(
-			Error(messenger.getMessage("invalidDirection"))
+		expect(robot.fn("place", x, y, f)).toEqual(
+			robot.messenger.getMessage("invalidDirection")
 		);
 	});
 
@@ -46,30 +52,33 @@ describe("Test Robot class", () => {
 		let x = -1;
 		let y = 4;
 		let f = "south";
-		expect(robot.place(x, y, f)).toEqual(
-			Error(messenger.getMessage("outOfTable"))
+		expect(robot.fn("place", x, y, f)).toEqual(
+			messenger.getMessage("outOfTable")
 		);
 	});
 
 	it("should return invalid initialize when robot haven't been init", () => {
-		expect(robot.report()).toEqual(
+		expect(robot.fn("report")).toEqual(
 			messenger.getMessage("invalidInitialize")
 		);
-		expect(robot.right()).toEqual(
+		expect(robot.fn("right")).toEqual(
 			messenger.getMessage("invalidInitialize")
 		);
-		expect(robot.move()).toEqual(messenger.getMessage("invalidInitialize"));
-		expect(robot.left()).toEqual(messenger.getMessage("invalidInitialize"));
+		expect(robot.fn("move")).toEqual(
+			messenger.getMessage("invalidInitialize")
+		);
+		expect(robot.fn("left")).toEqual(
+			messenger.getMessage("invalidInitialize")
+		);
 	});
 
 	it("should report return valid robot position", () => {
 		let x = 2;
 		let y = 2;
 		let f = "south";
-
-		robot.place(x, y, f);
-		expect(robot.report()).toEqual(
-			messenger.getMessage("report", x, y, robot.f)
+		robot.fn("place", x, y, f);
+		expect(robot.fn("report")).toEqual(
+			robot.messenger.getMessage("report", x, y, robot.f)
 		);
 	});
 
@@ -78,7 +87,7 @@ describe("Test Robot class", () => {
 		let y = 2;
 		let f = "south";
 
-		robot.place(x, y, f);
+		robot.fn("place", x, y, f);
 		expect(robot.isInitialized).toEqual(true);
 	});
 
@@ -87,7 +96,7 @@ describe("Test Robot class", () => {
 		let y = 2;
 		let f = "south";
 
-		robot.place(x, y, f);
+		robot.fn("place", x, y, f);
 
 		let received = {
 			x: robot.x,
@@ -105,7 +114,7 @@ describe("Test Robot class", () => {
 		x = 3;
 		y = 1;
 		f = "west";
-		robot.place(x, y, f);
+		robot.fn("place", x, y, f);
 
 		received = {
 			x: robot.x,
@@ -127,8 +136,8 @@ describe("Test Robot class", () => {
 		let y = 2;
 		let f = "east";
 
-		robot.place(x, y, f);
-		robot.move();
+		robot.fn("place", x, y, f);
+		robot.fn("move");
 
 		let received = {
 			x: robot.x,
@@ -149,8 +158,8 @@ describe("Test Robot class", () => {
 		let y = 2;
 		let f = "north";
 
-		robot.place(x, y, f);
-		robot.move();
+		robot.fn("place", x, y, f);
+		robot.fn("move");
 
 		let received = {
 			x: robot.x,
@@ -171,8 +180,8 @@ describe("Test Robot class", () => {
 		let y = 2;
 		let f = "west";
 
-		robot.place(x, y, f);
-		robot.move();
+		robot.fn("place",x, y, f);
+		robot.fn("move");
 
 		let received = {
 			x: robot.x,
@@ -193,8 +202,8 @@ describe("Test Robot class", () => {
 		let y = 2;
 		let f = "south";
 
-		robot.place(x, y, f);
-		robot.move();
+		robot.fn("place", x, y, f);
+		robot.fn("move");
 
 		let received = {
 			x: robot.x,
@@ -215,7 +224,7 @@ describe("Test Robot class", () => {
 		let y = 4;
 		let f = "east";
 
-		robot.place(x, y, f);
-		expect(robot.move()).toEqual(messenger.getMessage("outOfTable"));
-	})
+		robot.fn("place", x, y, f);
+		expect(robot.fn("move")).toEqual(messenger.getMessage("outOfTable"));
+	});
 });
