@@ -5,19 +5,15 @@ config.validator = {
 	startX: 0,
 	startY: 0,
 	lengthX: 5,
-	lengthY: 5
-};
-
-config.command = {
-	action: ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"],
+	lengthY: 5,
+	command: ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"],
 	direction: ["NORTH", "EAST", "SOUTH", "WEST"],
-	initialAction: "PLACE"
 };
 
 config.message = {
 	help: () => {
 		return `${os.EOL}
-			ACTION ${os.EOL}
+			COMMAND ${os.EOL}
 			-------------------- ${os.EOL}
 			PLACE  : place robot
 			MOVE   : move robot
@@ -28,7 +24,7 @@ config.message = {
 			-------------------- ${os.EOL}
 			DICRECTION ${os.EOL}
 			-------------------- ${os.EOL}
-			${config.command.direction.join(" ")}`;
+			${config.validator.direction.join(" ")}`;
 	},
 	unhandle: (key) => {
 		return `!!! Unhandle message [${key}]`;
@@ -41,18 +37,19 @@ config.message = {
 	invalidInitialize: () => {
 		return "!!! Invalid initialize command, Use PLACE X, Y, F instead";
 	},
-	invalidCoordinate: (input) => {
+	invalidCoordinate: (...input) => {
 		return `!!! ${input} coordinate must be integer`;
 	},
 	invalidDirection: (input) => {
 		return `!!! ${input} direction must be string and in 
-			[${config.command.direction.join(",")}]`;
+			[${config.validator.direction.join(",")}]`;
 	},
 	outOfTable: () => {
-		return "!!! Robot out of table";
+		return "!!! Robot cannot PLACE or MOVE to that position, out of range";
 	},
 	report: (x, y, f) => {
-		return `Robot position is: ${x}, ${y}, ${config.command.direction[f]}`;
+		return `Robot position is: 
+			${x}, ${y}, ${config.validator.direction[f]}`;
 	}
 };
 

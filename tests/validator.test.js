@@ -7,41 +7,50 @@ const config = require("@app/config");
  * use coordinate from config.js file.
  */
 describe("Test Validator class", () => {
-	const startX = config.validator.startX;
-	const startY = config.validator.startY;
-	const lengthX = config.validator.lengthX - 1;
-	const lengthY = config.validator.lengthY - 1;
-	const direction = config.command.direction;
+	const { startX, startY, lengthX, lengthY } = config.validator;
 	let validator = null;
 
 	beforeAll(function() {
-		validator = new Validator(startX, startY, lengthX, lengthY, direction);
+		validator = new Validator(config.validator);
 	});
 
 	it("return TRUE if x, y in table", () => {
 		expect(validator.isInTable(startX, startY)).toBe(true);
+		expect(validator.isInTable(lengthX - 1, lengthY - 1)).toBe(true);
+		expect(validator.isInTable(startX, lengthY - 1)).toBe(true);
+		expect(validator.isInTable(lengthX - 1, startY)).toBe(true);
 	});
 
 	it("return FALSE if x, y out of table", () => {
 		expect(validator.isInTable(startX - 1, startY - 1)).toBe(false);
-		expect(validator.isInTable(lengthX + 1, lengthY + 1)).toBe(false);
+		expect(validator.isInTable(lengthX, lengthY)).toBe(false);
 	});
 
-	it("return FALSE if x out of table", () => {
+	it("return FALSE if only x out of table", () => {
 		expect(validator.isInTable(startX - 1, startY)).toBe(false);
-		expect(validator.isInTable(lengthX + 1, startY)).toBe(false);
+		expect(validator.isInTable(lengthX, startY)).toBe(false);
 	});
 
-	it("return FALSE if y out of table", () => {
+	it("return FALSE if only y out of table", () => {
 		expect(validator.isInTable(startX, startY - 1)).toBe(false);
-		expect(validator.isInTable(lengthX, startY + 1)).toBe(false);
+		expect(validator.isInTable(lengthX - 1, lengthY)).toBe(false);
 	});
 
 	it("return TRUE if valid direction", () => {
-		expect(validator.isValidDirection('EAST')).toBe(true);
+		expect(validator.isValidDirection("EAST")).toBe(true);
+		expect(validator.isValidDirection("WEST")).toBe(true);
 	});
 
 	it("return FALSE if invalid direction", () => {
-		expect(validator.isValidDirection('random')).toBe(false);
+		expect(validator.isValidDirection("random")).toBe(false);
+	});
+
+	it("return FALSE if input not integer", () => {
+		expect(validator.isInteger(1.2)).toBe(false);
+		expect(validator.isInteger("1")).toBe(false);
+	});
+
+	it("return FALSE if input not string", () => {
+		expect(validator.isString(1)).toBe(false);
 	});
 });

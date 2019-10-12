@@ -39,4 +39,10 @@ describe("Test Validator class", () => {
 			config.message['unhandle']('someUnhandleKey')
 		);
 	});
+
+	it("return invalid coordinate message", () => {
+		expect(messenger.getMessage('invalidCoordinate', 1.1)).toEqual(
+			config.message['invalidCoordinate'](1.1)
+		);
+	});
 });
