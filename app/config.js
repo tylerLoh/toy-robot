@@ -29,13 +29,13 @@ config.message = {
 			os.EOL
 		}-------------------- ${
 			os.EOL
-		}PLACE  : Init robot or set robot position${
+		}PLACE  : Initial and update robot X,Y,F position${
 			os.EOL
-		}MOVE   : Move forward${os.EOL}LEFT   : Turn Left${
+		}MOVE   : Move forward${os.EOL}LEFT   : Turn left${
 			os.EOL
-		}RIGHT  : Turn Right${os.EOL}REPORT : Report robot current position${
+		}RIGHT  : Turn light${os.EOL}REPORT : Report robot current position${
 			os.EOL
-		}-------------------- ${os.EOL}${os.EOL}DICRECTION ${
+		}-------------------- ${os.EOL}${os.EOL}DICRECTION (case-insensitive)${
 			os.EOL
 		}-------------------- ${os.EOL}${config.validator.direction.join(" ")}${
 			os.EOL
@@ -45,9 +45,7 @@ config.message = {
 		return `!!! Unhandle message [${key}]`;
 	},
 	initial: () => {
-		return `Welcome to Toy-Robot playground
-			${os.EOL}Use PLACE command to initialize Robot
-			${os.EOL}Use HELP to check available command`;
+		return `Welcome to Toy-Robot application`
 	},
 	invalidInitialize: () => {
 		return "!!! Robot not ready, initial with PLACE X, Y, F to begin";
