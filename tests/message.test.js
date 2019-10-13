@@ -19,7 +19,7 @@ describe("Test Validator class", () => {
 		);
 	});
 
-	it("return identical report message", () => {
+	it("return identical position message", () => {
 		expect(messenger.getMessage('report', 1, 1, 0)).toEqual(
 			config.message["report"](1, 1, 0)
 		);
@@ -34,13 +34,13 @@ describe("Test Validator class", () => {
 		);
 	});
 
-	it("return unhandle message key", () => {
+	it("return unhandle message when invalid key", () => {
 		expect(messenger.getMessage('someUnhandleKey')).toEqual(
 			config.message['unhandle']('someUnhandleKey')
 		);
 	});
 
-	it("return invalid coordinate message", () => {
+	it("return invalid message for wrong coordinate", () => {
 		expect(messenger.getMessage('invalidCoordinate', 1.1)).toEqual(
 			config.message['invalidCoordinate'](1.1)
 		);

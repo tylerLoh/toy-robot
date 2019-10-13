@@ -72,9 +72,12 @@ const Robot = function(messenger, validator) {
 		 */
 		place: function(x, y, f) {
 			// validate x, y is a whole number
-			x = parseInt(x) || x;
-			y = parseInt(y) || y;
-			if (!this.validator.isInteger(x) || !this.validator.isInteger(y)) {
+			let _x = parseInt(x);
+			let _y = parseInt(y);
+			if (
+				!this.validator.isInteger(_x) ||
+				!this.validator.isInteger(_y)
+			) {
 				return this.messenger.getMessage("invalidCoordinate", x, y);
 			}
 
@@ -83,15 +86,15 @@ const Robot = function(messenger, validator) {
 				!this.validator.isString(f) ||
 				!this.validator.isValidDirection(f)
 			) {
-				return this.messenger.getMessage("invalidDirection");
+				return this.messenger.getMessage("invalidDirection", f);
 			}
 
 			// validate x,y is in table
-			if (!this.validator.isInTable(x, y)) {
+			if (!this.validator.isInTable(_x, _y)) {
 				return this.messenger.getMessage("outOfTable");
 			}
 
-			_update.call(this, x, y, f);
+			_update.call(this, _x, _y, f);
 			this.isInitialized = true;
 			return this.messenger.getMessage("success");
 		},

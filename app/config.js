@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Config object for:
  *   Robot class

@@ -17,13 +17,13 @@ describe("Test Robot class", () => {
 		robot = new Robot(messenger, validator);
 	});
 
-	it("should return invalid command for unhandle function", () => {
+	it("return invalid command for unhandle function", () => {
 		expect(robot.fn("_update")).toEqual(
 			robot.messenger.getMessage("invalidCommand", '_update')
 		);
 	});
 
-	it("should return invalid coordinate if x | y not int", () => {
+	it("return invalid coordinate if x | y not int", () => {
 		let x = 1;
 		let y = "hi";
 		let f = "south";
@@ -39,40 +39,40 @@ describe("Test Robot class", () => {
 		);
 	});
 
-	it("should return invalid Direction for invalid face direction", () => {
+	it("return invalid direction for wrong face direction", () => {
 		let x = 1;
 		let y = 2;
 		let f = "random";
 		expect(robot.fn("place", x, y, f)).toEqual(
-			robot.messenger.getMessage("invalidDirection")
+			robot.messenger.getMessage("invalidDirection", f)
 		);
 	});
 
-	it("should return out of table if x | y out of range", () => {
+	it("return out of table if x | y out of range", () => {
 		let x = -1;
 		let y = 4;
 		let f = "south";
 		expect(robot.fn("place", x, y, f)).toEqual(
-			messenger.getMessage("outOfTable")
+			robot.messenger.getMessage("outOfTable")
 		);
 	});
 
-	it("should return invalid initialize when robot haven't been init", () => {
+	it("return invalid initialize when robot haven't been place", () => {
 		expect(robot.fn("report")).toEqual(
-			messenger.getMessage("invalidInitialize")
+			robot.messenger.getMessage("invalidInitialize")
 		);
 		expect(robot.fn("right")).toEqual(
-			messenger.getMessage("invalidInitialize")
+			robot.messenger.getMessage("invalidInitialize")
 		);
 		expect(robot.fn("move")).toEqual(
-			messenger.getMessage("invalidInitialize")
+			robot.messenger.getMessage("invalidInitialize")
 		);
 		expect(robot.fn("left")).toEqual(
-			messenger.getMessage("invalidInitialize")
+			robot.messenger.getMessage("invalidInitialize")
 		);
 	});
 
-	it("should report return valid robot position", () => {
+	it("return valid robot position", () => {
 		let x = 2;
 		let y = 2;
 		let f = "south";
@@ -82,7 +82,7 @@ describe("Test Robot class", () => {
 		);
 	});
 
-	it("should return valid isInitialized for robot upon place", () => {
+	it("return TRUE flag for robot upon valid place", () => {
 		let x = 2;
 		let y = 2;
 		let f = "south";
@@ -91,7 +91,17 @@ describe("Test Robot class", () => {
 		expect(robot.isInitialized).toEqual(true);
 	});
 
-	it("should update x, y, f accordingly upon valid place", () => {
+
+	it("return falling when is moving out of range", () => {
+		let x = 4;
+		let y = 4;
+		let f = "east";
+
+		robot.fn("place", x, y, f);
+		expect(robot.fn("move")).toEqual(messenger.getMessage("outOfTable"));
+	});
+
+	it("update x, y, f accordingly upon valid place", () => {
 		let x = 2;
 		let y = 2;
 		let f = "south";
@@ -131,7 +141,7 @@ describe("Test Robot class", () => {
 		expect(received).toEqual(expected);
 	});
 
-	it("should increase x accordingly when facing EAST", () => {
+	it("increase x accordingly when moving from EAST", () => {
 		let x = 2;
 		let y = 2;
 		let f = "east";
@@ -153,7 +163,7 @@ describe("Test Robot class", () => {
 		expect(received).toEqual(expected);
 	});
 
-	it("should increase y accordingly when facing NORTH", () => {
+	it("increase y accordingly when moving from NORTH", () => {
 		let x = 2;
 		let y = 2;
 		let f = "north";
@@ -175,7 +185,7 @@ describe("Test Robot class", () => {
 		expect(received).toEqual(expected);
 	});
 
-	it("should decrease x accordingly when facing WEST", () => {
+	it("decrease x accordingly when moving from WEST", () => {
 		let x = 2;
 		let y = 2;
 		let f = "west";
@@ -197,7 +207,7 @@ describe("Test Robot class", () => {
 		expect(received).toEqual(expected);
 	});
 
-	it("should decrease y accordingly when facing SOUTH", () => {
+	it("decrease y accordingly when moving from SOUTH", () => {
 		let x = 2;
 		let y = 2;
 		let f = "south";
@@ -219,12 +229,4 @@ describe("Test Robot class", () => {
 		expect(received).toEqual(expected);
 	});
 
-	it("should return out of table when is falling", () => {
-		let x = 4;
-		let y = 4;
-		let f = "east";
-
-		robot.fn("place", x, y, f);
-		expect(robot.fn("move")).toEqual(messenger.getMessage("outOfTable"));
-	});
 });
