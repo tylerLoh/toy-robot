@@ -1,7 +1,6 @@
 # Toy Robot Simulator
 
-![View]
-(terminal.png)
+![View](terminal.png)
 
 ## Description
 
