@@ -1,5 +1,8 @@
 # Toy Robot Simulator
 
+![View]
+(terminal.png)
+
 ## Description
 
 - Toy Robot Simulator is an interactive NodeJS CLI application
