@@ -1,7 +1,6 @@
 # Toy Robot Simulator
 
-![View]
-(terminal.png)
+<img src="./terminal.png" width="auto" height="auto">
 
 ## Description
 
