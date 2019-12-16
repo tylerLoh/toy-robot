@@ -1,5 +1,7 @@
 # Toy Robot Simulator
 
+[![Build Status](https://travis-ci.org/tylerLoh/toy-robot.svg?branch=master)](https://travis-ci.org/tylerLoh/toy-robot)
+
 <img alt="" src="./terminal.png" width="729" height="523">
 
 ## Description
