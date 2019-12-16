@@ -3,7 +3,7 @@ const config = require("./config");
 /**
  * Robot class dependencies : Validator and Messenger
  * @param {Messenger} messenger The Messenger instance
- * @param {Playground} playgroud The Playground instance
+ * @param {Validator} validator The Playground instance
  * @constructor
  * @var {int} x robot horizontal position
  * @var {int} y robot vertical position
@@ -20,7 +20,7 @@ const Robot = function(messenger, validator) {
 
 	/**
 	 * Robot fn callback function checker
-	 * @param {srt} key cross map and call keyFunc object key function
+	 * @param {string} key cross map and call keyFunc object key function
 	 * @return {Messenger} matched callback or invalid command message
 	 */
 	this.fn = function(key) {
@@ -39,7 +39,7 @@ const Robot = function(messenger, validator) {
 	 * @param {int} x coordinate for X
 	 * @param {int} y coordinate for Y
 	 * @param {int} f robot face direction, will map config direction index
-	 * @return {bool} update if pass validation from place
+	 * @return {boolean} update if pass validation from place
 	 * @private
 	 */
 	const _update = function(x, y, f) {

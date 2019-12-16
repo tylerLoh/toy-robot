@@ -32,13 +32,13 @@ stdin.addListener("data", function(d) {
 	const args = d.trim().split(/(?:\s+|,\s*)/i);
 	const command = args.shift();
 
-	if (command.toLowerCase() == "exit") {
+	if (command.toLowerCase() === "exit") {
 		process.exit();
 	}
 
 	const ret = App.fn(command, ...args);
 
-	if (command.toLowerCase() == "help") {
+	if (command.toLowerCase() === "help") {
 		console.log(`${chalk.cyan(ret)}${os.EOL}`);
 	} else if (ret.startsWith("!!!")) {
 		console.log(`${chalk.red(ret)}${os.EOL}`);

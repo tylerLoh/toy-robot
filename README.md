@@ -1,6 +1,6 @@
 # Toy Robot Simulator
 
-<img src="./terminal.png" width="auto" height="auto">
+<img alt="" src="./terminal.png" width="729" height="523">
 
 ## Description
 
